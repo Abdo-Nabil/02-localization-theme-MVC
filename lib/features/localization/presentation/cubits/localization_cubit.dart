@@ -28,7 +28,7 @@ class LocalizationCubit extends Cubit<LocalizationState> {
     }
     //
     else {
-      _setSystemLocaleIfFound(false);
+      _setSystemLocaleIfFound(emitState: false);
     }
   }
 
@@ -36,7 +36,7 @@ class LocalizationCubit extends Cubit<LocalizationState> {
     await sharedPreferences.remove(
       StringsManager.storedLocale,
     );
-    _setSystemLocaleIfFound(true);
+    _setSystemLocaleIfFound(emitState: true);
   }
 
   Future setLocale(Locale locale) async {
@@ -56,7 +56,7 @@ class LocalizationCubit extends Cubit<LocalizationState> {
     return Locale(localeString);
   }
 
-  void _setSystemLocaleIfFound(bool emitState) {
+  void _setSystemLocaleIfFound({required bool emitState}) {
     final Locale deviceLocal = _getDeviceLocale();
     Locale systemLocaleOrEnglish =
         AppLocalizationsSetup.localeResolutionCallback(
