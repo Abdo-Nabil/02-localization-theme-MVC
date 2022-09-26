@@ -1,6 +1,30 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../features/localization/presentation/cubits/localization_cubit.dart';
+import 'colors_manager.dart';
 import 'font_manager.dart';
+
+TextStyle appNameTextStyle(BuildContext context) {
+  return TextStyle(
+    fontSize: FontSize.s44,
+    color: ColorsManager.whiteColor,
+    // fontWeight: fontWeight,
+    fontFamily: BlocProvider.of<LocalizationCubit>(context)
+                .selectedLocale
+                .languageCode ==
+            'en'
+        ? 'DynaPuff'
+        : 'Amiri',
+  );
+}
+
+TextStyle? plus20textStyle(BuildContext context) {
+  return Theme.of(context)
+      .textTheme
+      .subtitle1
+      ?.copyWith(color: ColorsManager.whiteColor);
+}
 
 TextStyle _getTextStyle(double fontSize, FontWeight fontWeight, Color color) {
   return TextStyle(
@@ -33,8 +57,7 @@ TextStyle getLightStyle(
 
 // bold style
 
-TextStyle getBoldStyle(
-    {double fontSize = FontSize.s12, required Color color}) {
+TextStyle getBoldStyle({double fontSize = FontSize.s12, required Color color}) {
   return _getTextStyle(fontSize, FontWeightManager.bold, color);
 }
 

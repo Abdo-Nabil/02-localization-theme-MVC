@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
 import '../../features/localization/locale/app_localizations.dart';
+import '../../resources/app_strings.dart';
 import '../error/exceptions.dart';
-import '../../resources/strings_manager.dart';
 
 extension TranslateX on String {
   String tr(BuildContext context) {
@@ -10,8 +10,8 @@ extension TranslateX on String {
       String result = AppLocalizations.of(context)!.translate(this);
       return result;
     } on TranslateException {
-      debugPrint(StringsManager.wordTranslationNotFound);
-      return StringsManager.wordTranslationNotFound;
+      debugPrint(AppStrings.wordTranslationNotFound);
+      return AppStrings.wordTranslationNotFound;
     }
   }
 }

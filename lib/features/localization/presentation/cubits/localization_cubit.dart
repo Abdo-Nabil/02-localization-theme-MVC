@@ -6,7 +6,7 @@ import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import '../../../../resources/strings_manager.dart';
+import '../../../../resources/app_strings.dart';
 import '../../locale/app_localizations_setup.dart';
 
 part 'localization_state.dart';
@@ -21,7 +21,7 @@ class LocalizationCubit extends Cubit<LocalizationState> {
 
   getLocale() {
     final String? jsonString =
-        sharedPreferences.getString(StringsManager.storedLocale);
+        sharedPreferences.getString(AppStrings.storedLocale);
     if (jsonString != null) {
       String decodedJsonData = json.decode(jsonString);
       selectedLocale = Locale(decodedJsonData);
@@ -34,14 +34,14 @@ class LocalizationCubit extends Cubit<LocalizationState> {
 
   Future setToSystemLocale() async {
     await sharedPreferences.remove(
-      StringsManager.storedLocale,
+      AppStrings.storedLocale,
     );
     _setSystemLocaleIfFound(emitState: true);
   }
 
   Future setLocale(Locale locale) async {
     await sharedPreferences.setString(
-      StringsManager.storedLocale,
+      AppStrings.storedLocale,
       json.encode(locale.languageCode),
     );
 

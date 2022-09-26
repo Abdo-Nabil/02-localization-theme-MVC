@@ -15,5 +15,5 @@ Future<void> main() async {
   await di.init();
   Bloc.observer = AppBlocObserver();
 
-  runApp(MyApp());
+  runApp(const MyApp());
 }

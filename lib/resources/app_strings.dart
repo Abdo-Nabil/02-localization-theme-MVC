@@ -1,9 +1,78 @@
-class StringsManager {
+class AppStrings {
   //---------------Shared preferences keys
   static const String storedLocale = 'storedLocale';
+  static const String storedRoute = 'storedRoute';
   static const String isLightTheme = 'isLightTheme';
+  static const String storedToken = 'storedToken';
 
-  static const noRouteFound = "noRouteFound";
+  //---------------On boarding
+  static const String done = 'done';
+  static const String skip = 'skip';
+
+  //---------------Authentication
+  static const String loginAsAUser = 'loginAsAUser';
+  static const String phoneNumber = 'phoneNumber';
+  static const String login = 'login';
+  static const String dontHaveAccount = 'dontHaveAccount';
+  static const String registerNow = 'registerNow';
+  static const String registerANewUser = 'registerANewUser';
+  static const String alreadyHaveAccount = 'alreadyHaveAccount';
+  static const String loginNow = 'loginNow';
+  static const String register = 'register';
+  static const String username = 'username';
+  static const String enterYourName = 'enterYourName';
+  static const String enterYourPhone = 'enterYourPhone';
+  static const String enterValidPhone = 'enterValidPhone';
+  static const String loading = 'loading';
+  static const String verify = 'verify';
+  static const String phoneNumberVerification = 'phoneNumberVerification';
+  static const String enterTheCodeSent = 'enterTheCodeSent';
+  static const String didntRecieveTheCode = 'didntRecieveTheCode';
+  static const String resend = 'resend';
+  static const String countryCode = '+20';
+  static const String plus20English = '+20';
+  static const String plus20Arabic = '20+';
+  static const String stars = '*********';
+  static const String invalidSMS = 'invalidSMS';
+  static const String alert = 'alert';
+  static const String internetConnectionError = 'internetConnectionError';
+  static const String someThingWentWrong = 'someThingWentWrong';
+  static const String ok = 'ok';
+  static const String emptyValue = 'emptyValue';
+  static const String enterAllDigits = 'enterAllDigits';
+  static const String savingTokenError = 'savingTokenError';
+
+  //--------------- FireStore
+  static const String usersCollection = 'users';
+
+  //--------------- home screen
+  static const String requestCar = 'requestCar';
+  static const String from = 'from';
+  static const String to = 'to';
+  static const String whereToGo = 'whereToGo';
+  static const String pickUpLocation = 'pickUpLocation';
+  static const String dropOffLocation = 'dropOffLocation';
+  static const String givePermission = 'givePermission';
+  static const String locationServicesDisabled = 'locationServicesDisabled';
+  static const String locationPermissionsDenied = 'locationPermissionsDenied';
+  static const String locationPermissionsDeniedForEver =
+      'locationPermissionsDeniedForEver';
+  static const String notFoundLocation = 'notFoundLocation';
+  static const String searchForLocation = 'searchForLocation';
+  static const String startPosition = 'startPosition';
+  static const String endPosition = 'endPosition';
+  static const String myCurrentLocation = 'myCurrentLocation';
+  static const String myLocation = 'myLocation';
+
+  //
+  //
+
+  //
+  //
+  static const notFoundPage = "notFoundPage";
+  static const appName = "appName";
+  static const appName_for_recent_app = "Waslny User";
+
   static const onBoardingTitle1 = "on_boarding_title1";
   static const onBoardingTitle2 = "on_boarding_title2";
   static const onBoardingTitle3 = "on_boarding_title3";
@@ -13,17 +82,12 @@ class StringsManager {
   static const onBoardingSubTitle2 = "on_boarding_desc2";
   static const onBoardingSubTitle3 = "on_boarding_desc3";
   static const onBoardingSubTitle4 = "on_boarding_desc4";
-  static const skip = "skip";
-  static const username = "username_hint";
   static const password = "password_hint";
   static const usernameError = "username_error";
   static const passwordError = "password_error";
-  static const login = "login_button";
   static const forgetPassword = "forgot_password_text";
   static const registerText = "register_text";
-  static const loading = "loading";
   static const retryAgain = "retry_again";
-  static const ok = "ok";
   static const String emailHint = 'email_hint';
   static const String invalidEmail = "email_error";
   static const String resetPassword = "reset_password";
@@ -31,8 +95,6 @@ class StringsManager {
   static const String userNameInvalid = "username_hint_message";
   static const String mobileNumberInvalid = "mobile_number_hint_message";
   static const String passwordInvalid = "password_hint_message";
-  static const String alreadyHaveAccount = "already_have_account";
-  static const register = "register";
   static const mobileNumber = "mobile_number_hint";
   static const profilePicture = "upload_profile_picture";
   static const photoGallery = "photo_from_galley";
