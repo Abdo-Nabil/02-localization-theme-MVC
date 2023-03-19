@@ -1,10 +1,9 @@
 import 'dart:convert';
 import 'dart:ui';
-import 'dart:io';
 
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:localization_theme_mvc/features/general/services/general_repo.dart';
 
 import '../../../../resources/app_strings.dart';
 import '../../locale/app_localizations_setup.dart';
@@ -12,16 +11,15 @@ import '../../locale/app_localizations_setup.dart';
 part 'localization_state.dart';
 
 class LocalizationCubit extends Cubit<LocalizationState> {
-  final SharedPreferences sharedPreferences;
+  final GeneralRepo generalRepo;
   LocalizationCubit({
-    required this.sharedPreferences,
+    required this.generalRepo,
   }) : super(LocalizationInitial());
 
   late Locale selectedLocale;
 
   getLocale() {
-    final String? jsonString =
-        sharedPreferences.getString(AppStrings.storedLocale);
+    final String? jsonString = generalRepo.getString(AppStrings.storedLocale);
     if (jsonString != null) {
       String decodedJsonData = json.decode(jsonString);
       selectedLocale = Locale(decodedJsonData);
@@ -33,14 +31,14 @@ class LocalizationCubit extends Cubit<LocalizationState> {
   }
 
   Future setToSystemLocale() async {
-    await sharedPreferences.remove(
+    await generalRepo.removeKey(
       AppStrings.storedLocale,
     );
     _setSystemLocaleIfFound(emitState: true);
   }
 
   Future setLocale(Locale locale) async {
-    await sharedPreferences.setString(
+    await generalRepo.setString(
       AppStrings.storedLocale,
       json.encode(locale.languageCode),
     );
@@ -49,11 +47,14 @@ class LocalizationCubit extends Cubit<LocalizationState> {
     emit(LocalizationSuccessState(locale: locale));
   }
 
-  //The system (mobile) language
+  //The system (Web,mobile) language
   Locale _getDeviceLocale() {
-    final String result = Platform.localeName; //like en_US or ar_EG
-    final String localeString = result.split('_').first;
-    return Locale(localeString);
+    // final String result = Platform.localeName; //like en_US or ar_EG
+    // final String localeString = result.split('_').first;
+    // return Locale(localeString);
+    //
+    Locale locale = window.locale;
+    return locale;
   }
 
   void _setSystemLocaleIfFound({required bool emitState}) {

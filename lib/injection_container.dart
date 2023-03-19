@@ -1,3 +1,5 @@
+import 'package:localization_theme_mvc/features/general/services/general_repo.dart';
+
 import 'core/network/network_info.dart';
 
 import 'package:get_it/get_it.dart';
@@ -5,14 +7,52 @@ import 'package:http/http.dart' as http;
 import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import 'features/general/cubits/general_cubit.dart';
+import 'features/general/services/general_local_data.dart';
+import 'features/general/services/general_remote_data.dart';
 import 'features/localization/presentation/cubits/localization_cubit.dart';
 import 'features/theme/presentation/cubits/theme_cubit.dart';
 
 final sl = GetIt.instance;
 
 Future<void> init() async {
+  await initGeneral();
   await initLocalization();
   await initTheme();
+}
+
+Future<void> initGeneral() async {
+//
+//---------------------* General *-------------------------------
+//! Features - General
+
+//! Bloc
+
+  sl.registerFactory(
+      () => GeneralCubit(generalRemoteData: sl(), generalLocalData: sl()));
+
+//! Use Cases
+
+//! Repository
+  sl.registerLazySingleton<GeneralRepo>(() => GeneralRepo(
+      generalRemoteData: sl(), generalLocalData: sl(), networkInfo: sl()));
+//! Data Sources
+  sl.registerLazySingleton<GeneralRemoteData>(() => GeneralRemoteData());
+  sl.registerLazySingleton<GeneralLocalData>(
+    () => GeneralLocalData(
+      sharedPreferences: sl(),
+    ),
+  );
+//! Core
+  sl.registerLazySingleton<NetworkInfo>(() => NetworkInfoImpl(sl()));
+//! External
+
+  final sharedPreferences = await SharedPreferences.getInstance();
+  sl.registerLazySingleton(() => sharedPreferences);
+
+  sl.registerLazySingleton(() => InternetConnectionChecker());
+
+  sl.registerLazySingleton(() => http.Client());
 }
 
 Future<void> initLocalization() async {
@@ -22,7 +62,7 @@ Future<void> initLocalization() async {
 
 //! Bloc
 
-  sl.registerFactory(() => LocalizationCubit(sharedPreferences: sl()));
+  sl.registerFactory(() => LocalizationCubit(generalRepo: sl()));
 
 //! Use Cases
 
@@ -34,8 +74,8 @@ Future<void> initLocalization() async {
 
 //! External
 
-  final sharedPreferences = await SharedPreferences.getInstance();
-  sl.registerLazySingleton(() => sharedPreferences);
+  // final sharedPreferences = await SharedPreferences.getInstance();
+  // sl.registerLazySingleton(() => sharedPreferences);
 }
 
 Future<void> initTheme() async {
@@ -45,7 +85,7 @@ Future<void> initTheme() async {
 
 //! Bloc
 
-  sl.registerFactory(() => ThemeCubit(sharedPreferences: sl()));
+  sl.registerFactory(() => ThemeCubit(generalRepo: sl()));
 
 //! Use Cases
 

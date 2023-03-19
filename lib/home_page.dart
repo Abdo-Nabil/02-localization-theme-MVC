@@ -61,7 +61,9 @@ class HomePage extends StatelessWidget {
             },
           ),
           Switch(
-            value: BlocProvider.of<ThemeCubit>(context).selectedThemeMode ==
+            //ToDo: to change button state in ui, add listen: true to the next line
+            value: BlocProvider.of<ThemeCubit>(context, listen: true)
+                        .selectedThemeMode ==
                     ThemeMode.dark
                 ? true
                 : BlocProvider.of<ThemeCubit>(context).selectedThemeMode ==

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:localization_theme_mvc/features/general/cubits/general_cubit.dart';
 
 import 'features/localization/locale/app_localizations_setup.dart';
 import 'features/localization/presentation/cubits/localization_cubit.dart';
@@ -16,6 +17,7 @@ class MyApp extends StatelessWidget {
     debugInvertOversizedImages = true;
     return MultiBlocProvider(
       providers: [
+        BlocProvider(create: (context) => sl<GeneralCubit>()),
         BlocProvider(create: (context) => sl<LocalizationCubit>()..getLocale()),
         BlocProvider(create: (context) => sl<ThemeCubit>()..getTheme()),
       ],

@@ -1,22 +1,20 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
-
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:localization_theme_mvc/features/general/services/general_repo.dart';
 
 import '../../../../resources/app_strings.dart';
 
 part 'theme_state.dart';
 
 class ThemeCubit extends Cubit<ThemeState> {
-  final SharedPreferences sharedPreferences;
-  ThemeCubit({required this.sharedPreferences}) : super(ThemeInitial());
+  final GeneralRepo generalRepo;
+  ThemeCubit({required this.generalRepo}) : super(ThemeInitial());
 
   late ThemeMode selectedThemeMode;
 
   getTheme() {
-    final bool? isLightTheme =
-        sharedPreferences.getBool(AppStrings.isLightTheme);
+    final bool? isLightTheme = generalRepo.getBool(AppStrings.isLightTheme);
     if (isLightTheme != null) {
       isLightTheme
           ? selectedThemeMode = ThemeMode.light
@@ -33,7 +31,7 @@ class ThemeCubit extends Cubit<ThemeState> {
       //
       case ThemeMode.system:
         {
-          await sharedPreferences.remove(AppStrings.isLightTheme);
+          await generalRepo.removeKey(AppStrings.isLightTheme);
           selectedThemeMode = ThemeMode.system;
           emit(ThemeChangedState(themeMode));
         }
@@ -41,7 +39,7 @@ class ThemeCubit extends Cubit<ThemeState> {
       //
       case ThemeMode.light:
         {
-          await sharedPreferences.setBool(AppStrings.isLightTheme, true);
+          await generalRepo.setBool(AppStrings.isLightTheme, true);
           selectedThemeMode = ThemeMode.light;
           emit(ThemeChangedState(themeMode));
         }
@@ -49,7 +47,7 @@ class ThemeCubit extends Cubit<ThemeState> {
       //
       case ThemeMode.dark:
         {
-          await sharedPreferences.setBool(AppStrings.isLightTheme, false);
+          await generalRepo.setBool(AppStrings.isLightTheme, false);
           selectedThemeMode = ThemeMode.dark;
           emit(ThemeChangedState(themeMode));
         }

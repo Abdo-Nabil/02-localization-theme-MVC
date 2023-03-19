@@ -9,3 +9,5 @@ class CacheSavingException implements Exception {}
 class OfflineException implements Exception {}
 
 class TranslateException implements Exception {}
+
+class CacheRemovingException implements Exception {}

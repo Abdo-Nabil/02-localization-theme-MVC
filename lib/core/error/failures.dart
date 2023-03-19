@@ -26,3 +26,8 @@ class CacheSavingFailure extends Failure {
   @override
   List<Object?> get props => [];
 }
+
+class CacheRemovingFailure extends Failure {
+  @override
+  List<Object?> get props => [];
+}
